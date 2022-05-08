@@ -13,7 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.nordea.demobanking.model.Employee;
-import com.nordea.demobanking.model.EmployeeDTO;
+import com.nordea.demobanking.model.EmployeeSavingDTO;
 import com.nordea.demobanking.service.BankingService;
 
 @WebMvcTest(BankingController.class)
@@ -34,7 +34,7 @@ public class BankingControllerTest {
     	    	
     	Employee employee = Employee.builder().employeeID("EMP100").employeeName("Albert").build();
     	
-    	EmployeeDTO emp = EmployeeDTO.builder().savings(2500).emp(employee).build();
+    	EmployeeSavingDTO emp = EmployeeSavingDTO.builder().savings(2500).emp(employee).build();
     	
     	Mockito.when(bankingServiceMock.getEmployeeSavings("EMP100")).thenReturn(emp);
     	

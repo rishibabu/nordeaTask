@@ -6,7 +6,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.nordea.demobanking.model.BankAccount;
 import com.nordea.demobanking.model.BankStatement;
 import com.nordea.demobanking.model.Employee;
-import com.nordea.demobanking.model.EmployeeDTO;
+import com.nordea.demobanking.model.EmployeeSavingDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,15 +16,16 @@ public class BankingServiceImpl implements BankingService {
 
 	private final WebClient webClient;
 
-   public BankingServiceImpl(WebClient.Builder webClientBuilder)
+   public BankingServiceImpl()
    {
-       this.webClient = webClientBuilder.baseUrl("https://example.org").build();
+	   
+	   this.webClient = WebClient.create("https://example.org");
 
    }
 
 
 	@Override
-	public EmployeeDTO getEmployeeSavings(String employeeID) {
+	public EmployeeSavingDTO getEmployeeSavings(String employeeID) {
 
 		BankAccount account = BankAccount.builder().bankName("Citi")
 				.bankStatement(BankStatement.builder().income(5000).expense(2500).build())
@@ -44,8 +45,8 @@ public class BankingServiceImpl implements BankingService {
 
 		Integer saving = parseSaving(account.getBankStatement().getIncome(), account.getBankStatement().getExpense());
 
-		return saving >= 0 ? EmployeeDTO.builder().emp(account.getEmp()).savings(saving).build()
-				: EmployeeDTO.builder().emp(account.getEmp()).debt(saving).build();
+		return saving >= 0 ? EmployeeSavingDTO.builder().emp(account.getEmp()).savings(saving).build()
+				: EmployeeSavingDTO.builder().emp(account.getEmp()).debt(saving).build();
 
 	}
 

@@ -1,9 +1,9 @@
 package com.nordea.demobanking.service;
 
-import com.nordea.demobanking.model.EmployeeDTO;
+import com.nordea.demobanking.model.EmployeeSavingDTO;
 
 public interface BankingService {
 	
-	public EmployeeDTO getEmployeeSavings(String employeeID);
+	public EmployeeSavingDTO getEmployeeSavings(String employeeID);
 
 }
