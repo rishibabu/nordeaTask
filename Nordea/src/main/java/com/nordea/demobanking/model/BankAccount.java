@@ -2,9 +2,10 @@ package com.nordea.demobanking.model;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Builder
+@NoArgsConstructor
 public class BankAccount {
 
 	private Employee emp;
@@ -14,5 +15,14 @@ public class BankAccount {
 	private String ifsc;
 
 	private BankStatement bankStatement;
+	
+	
+	
+	@Builder()
+	  public BankAccount(Employee emp, String bankName,BankStatement bankStatement) {
+	    this.emp = emp;
+	    this.bankName = bankName;
+	    this.bankStatement = bankStatement;
+	  }
 
 }

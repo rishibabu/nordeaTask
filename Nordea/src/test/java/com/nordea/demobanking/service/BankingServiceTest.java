@@ -1,9 +1,12 @@
 package com.nordea.demobanking.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -22,6 +25,8 @@ import com.nordea.demobanking.model.EmployeeSavingDTO;
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 //@WebFluxTest(value = BankingService.class)
 @ExtendWith(MockitoExtension.class)
@@ -69,18 +74,22 @@ public class BankingServiceTest {
 				.emp(Employee.builder().employeeID("EMP100").employeeName("Jacob").build()).savings(2500).build();
 
 		String employeeID = "EMP100";
-		
+
 		ObjectMapper objectMapper = new ObjectMapper();
-		
 
 		mockBackEnd.enqueue(new MockResponse().setBody(objectMapper.writeValueAsString(account))
 				.addHeader("Content-Type", "application/json"));
 
-		empDto = service.getEmployeeSavings(employeeID);
+		Mono<EmployeeSavingDTO> employeeSavingsMono = service.getEmployeeSavings(employeeID);
 
+//		StepVerifier.create(employeeSavingsMono)
+//				.expectNextMatches(employee -> employee.getEmp().getEmployeeID().equals(employeeID))
+//				.expectNextMatches(employee -> employee.getSavings().equals(2500)).verifyComplete();
 
-		assertEquals(empDto.getEmp().getEmployeeID(), (employeeID));
-		assertEquals(empDto.getSavings(), (2500));
+		StepVerifier.create(employeeSavingsMono).assertNext(employee -> {
+			assertNotNull(employee.getEmp().getEmployeeID());
+			MatcherAssert.assertThat(employee.getEmp().getEmployeeID(), is(equalTo(employeeID)));
+		}).expectComplete().verify();
 
 	}
 
