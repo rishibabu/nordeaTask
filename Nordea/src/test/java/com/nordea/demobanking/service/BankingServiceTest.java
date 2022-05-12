@@ -56,12 +56,12 @@ public class BankingServiceTest {
 	@BeforeAll
 	static void setUp() throws IOException {
 		mockBackEnd = new MockWebServer();
-		mockBackEnd.start();
+		mockBackEnd.start(8080);
 	}
 
 	@AfterAll
 	static void tearDown() throws IOException {
-		mockBackEnd.shutdown();
+		mockBackEnd.close();
 	}
 
 	@Test

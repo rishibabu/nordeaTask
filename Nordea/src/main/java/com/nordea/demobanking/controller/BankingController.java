@@ -17,6 +17,9 @@ import com.nordea.demobanking.exception.BankingServiceException;
 import com.nordea.demobanking.model.EmployeeSavingDTO;
 import com.nordea.demobanking.service.BankingService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import reactor.core.publisher.Mono;
 
 /**
@@ -33,6 +36,8 @@ public class BankingController {
 
 	@GetMapping(value = GET_SAVINGS_URL)
 	@ResponseStatus(HttpStatus.OK)
+	@Parameter(name ="EmployeeID", schema = @Schema(description = "",type = "string", allowableValues = {"EMP100"}))
+	@Operation(description = "Please provide the employee id as EMP100 for the sake of demo,other values will return error")
 	public ResponseEntity<Mono<EmployeeSavingDTO>> getEmployeeDetails(@PathVariable String employeeID) {
 
 		if(!employeeID.equalsIgnoreCase("EMP100"))
