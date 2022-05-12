@@ -14,5 +14,12 @@
      - Processing internal API calls within the corporate firewall instead of routing them through a cloud outside can improve the performance significantly
 
    * What kind of architecture was used to achieve the solution?
+     - I have used the Springboot Reactive microservice architecture which will actually retrieve the data from an external API(In our case for the sake of testing created an internal API) non blocking way which is not in traditional rest client.
    * How to test your application?
+     - To test our application please consider the below mentioned steps
+      - First clone the repositiory using the git clone command 
+     - This is java based Spring boot application which uses maven as a build tool to test you need to
+      - First download jdk from https://www.oracle.com/in/java/technologies/javase/jdk11-archive-downloads.html then either set the Enviroenment variables for running           java command everywhere or go the jdk bin folder directly and copy the java exe file path then go to the jar file location run the java command.
+     - Download the Maven build tool from https://maven.apache.org/download.cgi 
+     - Go inside the project folder
    * If the application must be deployed to a server in remote location, how would you do it?
