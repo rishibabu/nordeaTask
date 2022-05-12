@@ -10,6 +10,8 @@ import com.nordea.demobanking.model.BankAccount;
 import com.nordea.demobanking.model.BankStatement;
 import com.nordea.demobanking.model.Employee;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 /**
  * 
  * @author rishi
@@ -22,6 +24,7 @@ public class InternalBankApiController {
 	
 	@GetMapping(value="/bankstatement/{EmployeeID}")
 	@ResponseBody
+	@Operation(hidden = true)
 	public BankAccount getBankStatement(@PathVariable String EmployeeID)
 	{
 		return BankAccount.builder().bankName("Citi")

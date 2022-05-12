@@ -1,4 +1,4 @@
-package com.nordea.demobanking.controller;
+package com.nordea.demobanking.constants;
 
 public class BankingConstants {
 	

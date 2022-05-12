@@ -1,7 +1,7 @@
 package com.nordea.demobanking.service;
 
-import static com.nordea.demobanking.controller.BankingConstants.DEMO_BANKING_API;
-import static com.nordea.demobanking.controller.BankingConstants.DEMO_BANKING_API_PATH;
+import static com.nordea.demobanking.constants.BankingConstants.DEMO_BANKING_API;
+import static com.nordea.demobanking.constants.BankingConstants.DEMO_BANKING_API_PATH;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class BankingServiceImpl implements BankingService {
 	@Override
 	public Mono<EmployeeSavingDTO> getEmployeeSavings(String employeeID) {
 
-		try {
+		
 
 			Mono<BankAccount> account = WebClient.create(DEMO_BANKING_API).get()
 					.uri(DEMO_BANKING_API_PATH + employeeID).retrieve().bodyToMono(BankAccount.class);
@@ -43,14 +43,9 @@ public class BankingServiceImpl implements BankingService {
 				return Mono.just(saving >= 0 ? EmployeeSavingDTO.builder().emp(acc.getEmp()).savings(saving).build()
 						: EmployeeSavingDTO.builder().emp(acc.getEmp()).debt(saving).build());
 
-			});
+			});	
 
-		}
-
-		catch (Exception e) {
-			log.info("catching the invocation exception" + e.getMessage());
-			return null;
-		}
+		
 
 	}
 
