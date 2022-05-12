@@ -25,5 +25,8 @@
        6) Go to the maven bin folder eg - D:\XXX\apache-maven-3.8.5-bin\bin then open the command prompt run the command **mvn -f D:\XXX\NordeaRepo\Nordea clean install**.This command will create a jar file inside the target folder of our project eg-D:\XXX\NordeaRepo\Nordea\target
        7) Go to the target folder then open the command prompt run the famous java - jar command **eg java -jar xxx-snaphot.jar**
        8) The application will be running in your localhost at port 8080 after is up and running go to the Swagger link http://localhost:8080/swagger-ui/index.html#/banking-controller/getEmployeeDetails then hit the **try it out** button then give the parameter **EmployeeID** as EMP100 for the sake of testing the GET call will give a sample savings response for that user 
-     - Go inside the project folder
+ 
    * If the application must be deployed to a server in remote location, how would you do it?
+     - The application can be packaged as either jar or war.If it needs to be manually deployed in standalone application server like **Tomcat** the war generated from our application can be copied to the webapps/ROOT.war folder of the server
+     - The recommended and popular way of deployment is using any CI/CD tools like jenkins,aws,azure etc to continuously integrate the changes commited in any version control application like **git** and build the jar files.Then run the continuous deployment pipeline which run the generated jar files
+     - Along with CI/CD another approach which actually scales up the performance of our application by containerization which will convert our micro services as docker containers and then can be managed by any docker orchestration tools like Kubernetes to manage the cluster
